@@ -16,7 +16,9 @@ import { sendEmail } from "../utils/email";
     name:z.string(),
     email:z.string().email("O email e obrgatorio").toLowerCase(),
     password:z.string().min(8,"A senha nao deve ter menos de 8 caracteres "),
+    contact:z.string(),
     confirmPassword:z.string().min(8,"A senha nao deve ter menos de 8 caracteres ")
+
 
 })
 
@@ -60,8 +62,12 @@ export const signup = async (req: Request, res: Response) => {
         data:{
             email:validation.data.email,
             password: passwordHash,
+            contact:validation.data.contact,
+            
             profile:{
-                
+                create:{
+                    name:validation.data.name
+                }
             }
 
            

@@ -19,19 +19,20 @@ enum Role {
 }
 enum status {
   Pendente
-  recusado
-  aceite
+  Recusado
+  Aceite
 }
 
 model User {
   id        String            @id @default(uuid())
   email     String            @unique
   password  String
+  contact  String?
   role      Role              @default(USER)
   token     String?           @unique
   profile   Profile?
   Post      Post[]
-  requests  RequestResidue[]  // Alterado para um array de RequestResidue
+  requests  RequestResidue[]  
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
 
@@ -58,6 +59,7 @@ model Post {
   price       Decimal
   quantity    Decimal
   description String?
+  location  String ?
   user        User?            @relation(fields: [userId], references: [id])
   userId      String?
   residue     Residue          @relation(fields: [residueId], references: [id])
@@ -145,3 +147,5 @@ model RequestResidue {
   
   @@map("requestResidue")
 }
+
+
