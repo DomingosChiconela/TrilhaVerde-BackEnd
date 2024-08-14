@@ -36,8 +36,6 @@ export  const createPost = async (req:Request,res:Response)=>{
             data:{
                 quantity:validation.data.quantity,
                 price:validation.data.price,
-                latitude:validation.data.latitude,
-                logitude:validation.data.logitude,
                 residueId: validation.data.residueId,
                 description:validation.data.description,
                 image:validation.data.image,
@@ -214,14 +212,16 @@ export const UploudImgPost = async(req:Request,res:Response)=>{
 
     
 
-
+ /*
     try{
+
+       
         const {location}= req.file as unknown as Express.MulterFile
        
          const existingPost = await db.post.findUnique({
-             where:{
-                 userId
-             }
+            where:{
+                
+            }
          });
 
          if (!existingPost) {
@@ -247,7 +247,7 @@ export const UploudImgPost = async(req:Request,res:Response)=>{
     }catch(error){
         return res.status(500).json({ message: "Internal Server Error" });
 
-    }
+    }*/
 
 }
 

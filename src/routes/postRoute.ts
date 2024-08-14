@@ -7,7 +7,6 @@ import { createPost, deletePost, getAllPost, getPost, updatePost, UploudImgPost 
 
 
 
-
 export const  postRoute =  express.Router()
 
 postRoute.get("/",getAllPost)
