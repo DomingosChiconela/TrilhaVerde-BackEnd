@@ -17,6 +17,9 @@ app.use(urlencoded({extended:true}))
 
 
 
+app.use('/api/auth',authRoute)
+
+
 
 
 app.listen(port , ()=>{
