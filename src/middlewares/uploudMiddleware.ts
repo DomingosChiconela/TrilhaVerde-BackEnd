@@ -32,7 +32,7 @@ export const  uploadS3  = (buckerName:string) => {
       } , 
       key : function  ( req ,  file ,  cb )  { 
         const time = new Date().getTime().toString()
-        console.log(file.originalname)
+        
         cb ( null , time+"-"+file.originalname) 
  
       } 
