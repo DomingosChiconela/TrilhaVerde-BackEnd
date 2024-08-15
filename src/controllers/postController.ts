@@ -219,6 +219,7 @@ export const UploudImgPost = async(req:Request,res:Response)=>{
 
        
         const {location}= req.file as unknown as Express.MulterFile
+        console.log(req.file)
        
          const existingPost = await db.post.findUnique({
             where:{
@@ -229,15 +230,16 @@ export const UploudImgPost = async(req:Request,res:Response)=>{
          if (!existingPost) {
              return res.status(404).json({ message: "Post not found" });
          }
-
+/*
          if(req.userId !== existingPost.userId && req.role!== "ADMIN"){
 
              return res.status(403).json({ message: "Access denied" });
          }
+             */
          const postUpdated = await db.post.update({
 
              where:{
-                 id ,
+                id:"c0fef4dc-db19-4e2b-bd20-34359b992923" ,
              },
              data:{
                 image:location
