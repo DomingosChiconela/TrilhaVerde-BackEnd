@@ -14,6 +14,7 @@ const  residueSchema  = z.object({
 export  const createResidue = async (req:Request,res:Response)=>{
 
     const validation = residueSchema.safeParse(req.body);
+    console.log(validation)
     if(!validation.success){
         return  res.status(400).json({message:fromZodError(validation.error).details})
     }

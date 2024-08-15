@@ -8,13 +8,11 @@ import { fromZodError } from "zod-validation-error"
 
 const postSchema  =  z.object({
  //   z.preprocess((val) => parseFloat(parseFloat(val as string).toFixed(2)), z.number().positive())
-    image:z.string().optional(),
-    price:z.number(),
-    quantity:z.number().positive() ,
-    latitude: z.string(),
-    logitude:z.string(),
+    
+    price:z.string(),
+    quantity:z.string(),
     description:z.string().optional(),
-    residueId:z.string()
+    category:z.string()
 
 })
 
@@ -26,19 +24,23 @@ const updatePostSchema = postSchema.partial();
 
 export  const createPost = async (req:Request,res:Response)=>{
     const userid =  req.userId
+   
+    console.log(req.body)
+   
     const validation = postSchema.safeParse(req.body);
     if(!validation.success){
         return  res.status(400).json({message:fromZodError(validation.error).details})
     }
+    
 
     try{
         const newPost = await db.post.create({
             data:{
-                quantity:validation.data.quantity,
-                price:validation.data.price,
-                residueId: validation.data.residueId,
+                quantity: parseInt(validation.data.quantity) ,
+                price: parseInt(validation.data.price)  ,
+                residueId:validation.data.category,
                 description:validation.data.description,
-                image:validation.data.image,
+              
                 userId:userid
 
                 
@@ -212,7 +214,7 @@ export const UploudImgPost = async(req:Request,res:Response)=>{
 
     
 
- /*
+ 
     try{
 
        
@@ -220,7 +222,7 @@ export const UploudImgPost = async(req:Request,res:Response)=>{
        
          const existingPost = await db.post.findUnique({
             where:{
-                
+                id
             }
          });
 
@@ -247,13 +249,9 @@ export const UploudImgPost = async(req:Request,res:Response)=>{
     }catch(error){
         return res.status(500).json({ message: "Internal Server Error" });
 
-    }*/
+    }
 
 }
-
-
-
-
 
 
 
