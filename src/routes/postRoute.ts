@@ -11,7 +11,7 @@ export const  postRoute =  express.Router()
 
 postRoute.get("/",getAllPost)
 postRoute.get("/:id",AuthMiddleware,getPost)
-postRoute.post("/",createPost)
+postRoute.post("/",AuthMiddleware, createPost)
 postRoute.put("/:id",AuthMiddleware,updatePost)
 postRoute.delete("/:id",AuthMiddleware,deletePost)
 postRoute.post("/image/:id",uploadS3("bacissa-post").single('post'),UploudImgPost)

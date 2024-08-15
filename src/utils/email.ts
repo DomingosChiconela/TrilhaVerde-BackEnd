@@ -40,7 +40,7 @@ export const sendEmail = async (to: string,url:string) => {
           Recebemos uma solicitação para redefinir a senha da sua conta. Se você não fez essa solicitação, ignore este email. Caso contrário, clique no botão abaixo para redefinir sua senha:
         </p>
         <div style="text-align: center; margin: 20px 0;">
-          <a href="http://localhost:5173/resetPassord/${url}"
+          <a href="http://localhost:3002/login/${url}"
              style="background-color: #0ec73f; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
             Redefinir Senha
           </a>
