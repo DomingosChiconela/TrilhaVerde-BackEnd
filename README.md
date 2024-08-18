@@ -29,8 +29,7 @@
 ### Instalação
 1. **Clone o repositório:**
    ```bash
-   git clone [https://github.com/DomingosChiconela/TrilhaVerde-BackEnd](https://github.com/DomingosChiconela/TrilhaVerde-BackEnd)
-
+   git clone https://github.com/DomingosChiconela/TrilhaVerde-BackEnd
 
 acesse o projecto que a caba de clonar com o comando cd TrilhaVerde-BackEnd
 
