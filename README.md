@@ -23,16 +23,58 @@
 - **Moderação de Anúncios**: Os administradores podem ver, editar ou remover anúncios duplicados ou inadequados.
 - **Gerenciamento de Usuários**: Ferramentas para criar, editar e eliminar contas de usuários, garantindo a segurança e o bom funcionamento do sistema.
 
+### Pré-requisitos
+* **Node.js e npm (ou yarn):** Certifique-se de ter o Node.js e o npm (ou yarn) instalados em sua máquina.
+
+### Instalação
+1. **Clone o repositório:**
+   ```bash
+   git clone [https://github.com/DomingosChiconela/TrilhaVerde-BackEnd](https://github.com/DomingosChiconela/TrilhaVerde-BackEnd)
+
+
+acesse o projecto que a caba de clonar com o comando cd TrilhaVerde-BackEnd
+
+instale as dependencia 
+com npm install ou npm i
+
+para rodar a aplicacao 
+npm run dev 
+
+Antes de rodar a aplicação, configure as variáveis de ambiente. Para saber quais variáveis são necessárias, acesse o arquivo .env.template, que contém um molde do que é necessário.
+Aqui estão as variáveis de ambiente que você precisa configurar:
+DATABASE_URL: URL para acessar a sua base de dados.
+PORT: Porta em que o servidor estará rodando.
+SECRET: Chave secreta para autenticação.
+REGION: Região da AWS S3 para o upload de imagens.
+ACCESSKEYID: ID de acesso da AWS.
+SECRETACCESSKEY: Chave de acesso secreta da AWS.
+As quatro variáveis acima são para configurar o armazenamento de imagens usando AWS S3. Você pode usar outros mecanismos de armazenamento de imagens se preferir.
+
+
+SECRET=
+
+REGION=
+
+ACCESSKEYID=
+
+SECRETACCESSKEY=
+
+as quantro anteriores sao apara configurcao de onde sera feito o uploud de imagens ,aque esta se fazendo uso da aws s3 mais podes usar outros mecanismos de armazenamentos de imagens
+
+
+aseguir temos as variaveis apara configurar o envio de email , tambem sao opcionas podes fazer uso de outro modo ou mecanismo de envio o aqui esta se usando o nodemail como host o gamil
+MAIL_FROM=
+
+MAIL_HOST=
+
+MAIL_PORT=
+
+MAIL_USER=
+
+MAIL_PASS=
 
 
 
-
-## Uso/Instalação
-
-Primeiro, clone o repositório com o comando:
-\```bash
-git clone https://github.com/DomingosChiconela/TrilhaVerde-BackEnd
-\```
 
 
 ## Tecnologias Utilizadas
