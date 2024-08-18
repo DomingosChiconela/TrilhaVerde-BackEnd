@@ -7,6 +7,7 @@ import { userRoute } from "./routes/userRoute"
 import { residueRoute } from "./routes/residueRoute"
 import { profileRoute } from "./routes/profileRoute"
 import { postRoute } from "./routes/postRoute"
+import { adminRoute } from "./routes/adminRoute"
 
 
 
@@ -27,6 +28,7 @@ app.use('/api/user',userRoute)
 app.use('/api/residue',residueRoute)
 app.use('/api/profile',profileRoute)
 app.use('/api/post',postRoute)
+app.use('/api/admin/',adminRoute)
 
 
 
