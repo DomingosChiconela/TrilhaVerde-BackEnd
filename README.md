@@ -26,11 +26,22 @@
 ### Pré-requisitos
 * **Node.js e npm (ou yarn):** Certifique-se de ter o Node.js e o npm (ou yarn) instalados em sua máquina.
 
-### Instalação
+ ### Estrutura do Projeto
+
+- **`server.ts`**: Arquivo onde está a configuração do servidor.
+
+- **`src/routes/`**: Diretório onde estão as rotas da aplicação.
+
+- **`src/controllers/`**: Diretório onde estão os controladores que lidam com a lógica de negócios.
+
+- **`src/middlewares/`**: Diretório onde estão os middlewares que executam lógica entre as requisições e respostas.
+
+- **`src/utils/`**: Diretório onde estão utilitários e funções auxiliares.
+
+  ### Instalação
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/DomingosChiconela/TrilhaVerde-BackEnd
-
+   git clone git@github.com:DomingosChiconela/TrilhaVerde-BackEnd.git
 2. **acesse o projecto que a caba de clonar com o comando:**
    ```bash
    cd TrilhaVerde-BackEnd
@@ -44,7 +55,7 @@
    npm run dev
 
 
-Antes de rodar a aplicação, configure as variáveis de ambiente. Para saber quais variáveis são necessárias, acesse o arquivo .env.template, que contém um molde do que é necessário.
+Antes de rodar a aplicação, configure as **variáveis de ambiente**. Para saber quais variáveis são necessárias, acesse o arquivo **.env.template**, que contém um molde do que é necessário.
 Aqui estão as variáveis de ambiente que você precisa configurar:
 - **DATABASE_URL**: URL para acessar a sua base de dados.
 - **PORT**: Porta em que o servidor estará rodando.
@@ -60,6 +71,96 @@ Aseguir temos as variaveis apara configurar o envio de email , tambem sao opcion
 - **MAIL_PORT**: Porta do servidor de e-mail.
 -  **MAIL_USER**: Nome de usuário para autenticação no servidor de e-mail.
 -  **MAIL_PASS**: Senha para autenticação no servidor de e-mail.
+### Uso
+
+Com o servidor rodando, você pode acessar a aplicação através de:
+
+- **Cadastro de Usuário**
+  - **Endpoint**: `http://localhost:<porta>/api/auth/signup`
+  - **Método**: `POST`
+  - **Corpo da Requisição**:
+    ```json
+    {
+      "name": "John Doe",
+      "email": "example@gmail.com",
+      "password": "senhaSegura",
+      "confirmPassword": "senhaSegura"
+    }
+    ```
+  - **Resposta Bem-Sucedida**:
+    - **Status**: `201 Created`
+    - **Corpo da Resposta**:
+      ```json
+      {
+        "message": "User created",
+        "data": "newUser"
+      }
+      ```
+
+- **Login**
+  - **Endpoint**: `http://localhost:<porta>/api/auth/login`
+  - **Método**: `POST`
+  - **Corpo da Requisição**:
+    ```json
+    {
+      "email": "example@gmail.com",
+      "password": "senhaSegura"
+    }
+    ```
+  - **Resposta Bem-Sucedida**:
+    - **Status**: `200 OK`
+    - **Corpo da Resposta**:
+      ```json
+      {
+        "message": "authenticated user",
+        "token": "seuToken"
+      }
+      ```
+
+**Nota**: O token é importante para indicar que o usuário está autenticado. Armazene-o de alguma forma no lado do cliente, seja em cookies ou no localStorage. Em todas as próximas requisições, você deve passar o token no cabeçalho da requisição.
+
+
+### Como Saber os Endpoints?
+
+Para descobrir os endpoints disponíveis na aplicação, você deve acessar o arquivo `server.ts`. Este arquivo contém a configuração das rotas base da API, permitindo que você veja como os caminhos para cada tipo de rota são estruturados.
+
+No `server.ts`, você encontrará a configuração das rotas base para diferentes módulos da aplicação, como mostrado abaixo:
+   ```typescript
+   app.use('/api/auth', authRoute);
+   app.use('/api/user', userRoute);
+   app.use('/api/residue', residueRoute);
+   app.use('/api/profile', profileRoute);
+   app.use('/api/post', postRoute);
+   app.use('/api/admin/', adminRoute);
+```
+
+
+###Como descobrir quais dados são necessários em cada requisição?
+
+1.**Identifique o Caminho Base e as Rotas**
+
+No arquivo `server.ts`, você encontrará a configuração das rotas base para diferentes módulos da aplicação, citados a cima:
+
+2. **Consulte o Router Associado**
+   O módulo de rotas (authRoute) define rotas específicas e seus métodos:
+   ```typescript
+   authRoute.post("/signup", signup);
+   authRoute.post("/login", login);
+   ```
+   Essas rotas (/signup e /login) são gerenciadas pelos métodos signup e login.
+   
+   3. **Verifique os Métodos e Esquemas no Controller**
+      Os métodos como signup e login são definidos no arquivo de controladores (controllers). Cada método possui um esquema que define quais campos são necessários e suas validações.    Por exemplo, o método signup pode usar um esquema de validação como o Zod:
+      ```typescript
+      const signupSchema = z.object({
+       name: z.string(),
+       email: z.string().email("O email é obrigatório").toLowerCase(),
+       password: z.string().min(8, "A senha não deve ter menos de 8 caracteres"),
+       contact: z.string(),
+       confirmPassword: z.string().min(8, "A senha não deve ter menos de 8 caracteres")
+      });
+   Este esquema define os campos necessários e as validações para a requisição de signup.
+
 
 ## Tecnologias Utilizadas
 
