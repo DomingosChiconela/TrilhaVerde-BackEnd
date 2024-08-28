@@ -40,8 +40,8 @@ export const createPost = async (req: Request, res: Response) => {
 
         const newPost = await db.post.create({
             data: {
-                quantity: parseInt(validation.data.quantity),
-                price: parseInt(validation.data.price),
+                quantity: parseFloat(validation.data.quantity),
+                price: parseFloat(validation.data.price),
                 residueId: validation.data.category,
                 description: validation.data.description,
                 location:validation.data.location,
@@ -66,6 +66,7 @@ export const createPost = async (req: Request, res: Response) => {
                 }
             }
         })
+        
 
         res.status(201).json({ message: "Post created", data: newPost })
     } catch (error) {
@@ -85,8 +86,25 @@ export const getAllPost = async (req: Request, res: Response) => {
 
     try {
 
-        const allPost = await db.post.findMany()
+        const allPost = await db.post.findMany({
+            select:{
+                id: true,
+                image: true,
+                price: true,
+                quantity: true,
+                description: true,
+                location: true,
+                residue:{
+                    select:{
+                        name:true
+                    }
+                }
+            }
 
+        })
+
+
+ 
 
         res.status(200).json({ message: "All posts", data: allPost })
 
