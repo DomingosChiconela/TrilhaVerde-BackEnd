@@ -134,12 +134,12 @@ export const login =  async (req: Request, res: Response) => {
 
         const token  =   jwt.sign({id:user.id, role:user.role},secret,{expiresIn:"30d"})
 
-        const  {role,profile}=user
+        const  {role,profile,id}=user
 
         const name = profile?.name
 
 
-        res.status(200).json({message:"authenticated user",token,role,name})
+        res.status(200).json({message:"authenticated user",id,token,role,name})
 
         
 

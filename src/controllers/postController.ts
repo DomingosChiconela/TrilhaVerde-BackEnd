@@ -13,7 +13,9 @@ const postSchema = z.object({
     price: z.string(),
     quantity: z.string(),
     description: z.string().optional(),
-    category: z.string()
+    category: z.string(),
+    location: z.string(),
+    image:z.string()
 
 
 })
@@ -27,7 +29,7 @@ const updatePostSchema = postSchema.partial();
 export const createPost = async (req: Request, res: Response) => {
 
     try {
-        const userid = req.userId
+       
 
         console.log(req.body)
 
@@ -42,13 +44,27 @@ export const createPost = async (req: Request, res: Response) => {
                 price: parseInt(validation.data.price),
                 residueId: validation.data.category,
                 description: validation.data.description,
-
-                userId: userid
+                location:validation.data.location,
+                image:validation.data.image,
+                userId: "bf0be16b-b546-4dba-9b54-d1cc05f41898",
 
 
 
 
             },
+            select:{
+                id: true,
+                image: true,
+                price: true,
+                quantity: true,
+                description: true,
+                location: true,
+                residue:{
+                    select:{
+                        name:true
+                    }
+                }
+            }
         })
 
         res.status(201).json({ message: "Post created", data: newPost })
@@ -71,17 +87,6 @@ export const getAllPost = async (req: Request, res: Response) => {
 
         const allPost = await db.post.findMany()
 
-        const populated = await Promise.all(allPost.map(async (post) => {
-            const res = post
-            if (!res.residueId) return res
-            const residue = await db.residue.findUnique({
-                where: {
-                    id: res.residueId
-                }
-            })
-            res.residue = residue
-            return res
-        }))
 
         res.status(200).json({ message: "All posts", data: allPost })
 
@@ -222,19 +227,11 @@ export const deletePost = async (req: Request, res: Response) => {
 
 
 export const UploudImgPost = async (req: Request, res: Response) => {
-    const userId = req.userId
-    const { id } = req.params
-    console.log(id)
-
-
-
-
+ 
     try {
-
-
         const { location } = req.file as unknown as Express.MulterFile
-        console.log(req.file)
-
+        console.log(` no controller${req.file}`)
+/*
         const existingPost = await db.post.findUnique({
             where: {
                 id
@@ -249,7 +246,7 @@ export const UploudImgPost = async (req: Request, res: Response) => {
         
                      return res.status(403).json({ message: "Access denied" });
                  }
-                     */
+                     
         const postUpdated = await db.post.update({
 
             where: {
@@ -259,11 +256,12 @@ export const UploudImgPost = async (req: Request, res: Response) => {
                 image: location
             }
         })
-
-        return res.status(200).json({ message: "Image Post updated", postUpdated })
+*/
+        return res.status(200).json({ message: "Image Post updated", location })
 
     } catch (error) {
-        return res.status(500).json({ message: "Internal Server Error" });
+        console.log(error)
+        return res.status(500).json({ message: "deu merda" });
 
     }
 
